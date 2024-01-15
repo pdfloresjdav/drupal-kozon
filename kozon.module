@@ -1,0 +1,110 @@
+<?php
+use Drupal\Core\Url;
+use Drupal\Core\Breadcrumb\Breadcrumb;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Link;
+use Drupal\taxonomy\Entity\Term;
+/**
+ * Implements hook_theme().
+ */
+function kozon_theme($existing, $type, $theme, $path) {
+
+  return [
+    'kozon_home_block' => [
+        'variables' => ['items' => NULL],
+    ],
+    //Name of the theme hook. This is used in the controller to trigger the hook.
+    'kozon_theme_hook' => [
+      'render element' => 'children',
+      //If no template name is defined here, it defaults to the name of the theme hook, ie. module-name-theme-hook.html.twig
+      'template' => 'kozon-theme-hook',
+      //Optionally define path to Twig template files. Defaults to the module's ./templates/ directory.
+      'path' => $path . '/templates',
+      //Optionally define variables that will be passed to the Twig template and set default values for them.
+      'variables' => [
+          'items' => NULL,
+      ],
+    ],
+    'kozon_cat_theme_hook' => [
+      'render element' => 'children',
+      //If no template name is defined here, it defaults to the name of the theme hook, ie. module-name-theme-hook.twig
+      'template' => 'kozon-cat-theme-hook',
+      //Optionally define path to Twig template files. Defaults to the module's ./templates/ directory.
+      'path' => $path . '/templates',
+      //Optionally define variables that will be passed to the Twig template and set default values for them.
+      'variables' => [
+          'items' => NULL,
+      ],
+    ],
+    'kozon_all_cat_theme_hook' => [
+      'render element' => 'children',
+      //If no template name is defined here, it defaults to the name of the theme hook, ie. module-name-theme-hook.html.twig
+      'template' => 'kozon-all-cat-theme-hook',
+      //Optionally define path to Twig template files. Defaults to the module's ./templates/ directory.
+      'path' => $path . '/templates',
+      //Optionally define variables that will be passed to the Twig template and set default values for them.
+      'variables' => [
+          'items' => NULL,
+      ],
+    ],
+    'kozon_all_forums_theme_hook' => [
+      'render element' => 'children',
+      //If no template name is defined here, it defaults to the name of the theme hook, ie. module-name-theme-hook.html.twig
+      'template' => 'kozon-all-forums-theme-hook',
+      //Optionally define path to Twig template files. Defaults to the module's ./templates/ directory.
+      'path' => $path . '/templates',
+      //Optionally define variables that will be passed to the Twig template and set default values for them.
+      'variables' => [
+          'items' => NULL,
+      ],
+    ],
+    'my-forums' => [
+      'render element' => 'children',
+      //If no template name is defined here, it defaults to the name of the theme hook, ie. module-name-theme-hook.html.twig
+      'template' => 'my-forums',
+      //Optionally define path to Twig template files. Defaults to the module's ./templates/ directory.
+      'path' => $path . '/templates',
+      //Optionally define variables that will be passed to the Twig template and set default values for them.
+      'variables' => [
+          'items' => NULL,
+      ],
+    ],
+    'kozon_theme_comment' => [
+      'render element' => 'children',
+      //If no template name is defined here, it defaults to the name of the theme hook, ie. module-name-theme-hook.html.twig
+      'template' => 'kozon-theme-comment',
+      //Optionally define path to Twig template files. Defaults to the module's ./templates/ directory.
+      'path' => $path . '/templates',
+      //Optionally define variables that will be passed to the Twig template and set default values for them.
+      'variables' => [
+          'items' => NULL,
+      ],
+    ],
+  ];
+}
+
+function kozon_system_breadcrumb_alter(\Drupal\Core\Breadcrumb\Breadcrumb &$breadcrumb, \Drupal\Core\Routing\RouteMatchInterface $route_match, array $context) {
+  $current_url = Url::fromRoute('<current>');
+  $path = $current_url->toString();
+  $urls = $breadcrumb->getLinks();
+
+  if(count($urls)==4){
+    if($urls[1]->getText()=='Kozon' && $urls[2]->getText()=='Kozon Term' && $urls[3]->getText()=='Kozon'){
+      $pathProf = explode('/', $path);
+      $term = Term::load($pathProf['2']);
+      $urls[2]->setText($term->getName());
+      $node = node_load($pathProf['3']);
+      $urls[3]->setText($node->getTitle()); 
+    }
+  }
+  if(count($urls)==3){
+
+    if($urls[1]->getText()=='Kozon' && $urls[2]->getText()=='Kozon Term'){
+      $pathProf = explode('/', $path);
+      $term = Term::load($pathProf['2']);
+      if($term){
+        $urls[2]->setText($term->getName());
+      }
+    }
+  }
+}

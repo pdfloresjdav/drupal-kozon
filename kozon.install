@@ -1,0 +1,149 @@
+<?php
+
+use Drupal\Core\Database\Database;
+
+/**
+* @file
+* Install and uninstall functions for the Sharepoint module.
+*/
+
+/**
+ * Write a line or two here about what the updates are for.
+ * This is shown to users on the update.php page.
+ */
+function kozon_update_8601() {
+
+  $spec = [
+    'description' => 'Kozon Visited',
+    'fields' => [
+      'kid' => [
+        'description' => 'Primary Key: unique ID for kozon visited.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'uid' => array(
+        'description' => 'The user to visit.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'catid' => array(
+        'description' => 'The category id.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'forumid' => array(
+        'description' => 'The forum id.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'counter' => array(
+        'description' => 'visit counter per person.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'timestamp' => array(
+        'description' => "The time the message was created",
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ],
+    'primary key' => ['kid'],
+  ]; 
+ $schema = Database::getConnection()->schema();
+ $schema->createTable('kozon_visited', $spec);
+
+}
+
+/**
+ * Write a line or two here about what the updates are for.
+ * This is shown to users on the update.php page.
+ */
+function kozon_update_8602() {
+
+  $spec = [
+    'description' => 'Like Comment',
+    'fields' => [
+      'clid' => [
+        'description' => 'Primary Key: unique ID for like comment.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'uid' => array(
+        'description' => 'The user to like comment.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'comid' => array(
+        'description' => 'The comment id.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'timestamp' => array(
+        'description' => "The time the message was created",
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ],
+    'primary key' => ['clid'],
+  ]; 
+ $schema = Database::getConnection()->schema();
+ $schema->createTable('like_comment', $spec);
+
+}
+
+/**
+ * Write a line or two here about what the updates are for.
+ * This is shown to users on the update.php page.
+ */
+function kozon_update_8603() {
+
+  $spec = [
+    'description' => 'Kozon Tag',
+    'fields' => [
+      'ktid' => [
+        'description' => 'Primary Key: unique ID for kozon visited.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'uid' => array(
+        'description' => 'The user to visit.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'catid' => array(
+        'description' => 'The category id.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'forumid' => array(
+        'description' => 'The forum id.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'timestamp' => array(
+        'description' => "The time the message was created",
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ],
+    'primary key' => ['ktid'],
+  ]; 
+ $schema = Database::getConnection()->schema();
+ $schema->createTable('kozon_tag', $spec);
+
+}

@@ -1,0 +1,213 @@
+like_kozon.manager:
+  path: like-kozon/{clicked}/{data}
+  defaults:
+    _controller: '\Drupal\like_dislike\Controller\LikeDislikeController::handlerKozon'
+  requirements:
+    _permission: 'access content'
+    _csrf_token: 'TRUE'
+kozon.content:
+  path: '/kozon/{taxid}/{node}' 
+  defaults: 
+    _controller: '\Drupal\kozon\Controller\KozonController::content' 
+    _title: 'Kozon'
+  requirements: 
+    _permission: 'access content' 
+  options:
+    parameters:
+      node:
+        type: entity:node
+kozon.content_term:
+  path: '/kozon/{taxid}' 
+  defaults: 
+    _controller: '\Drupal\kozon\Controller\KozonController::contentTerm' 
+    _title: 'Kozon Term'
+  requirements: 
+    _permission: 'access content' 
+kozon.form.comment:
+  path: '/kozon/form/comment/{arg}'
+  defaults:
+    _form: '\Drupal\kozon\Form\AddCommentForm'
+  requirements:
+    _permission: 'access content'
+kozon.add.comment:
+  path: '/kozon/js/forum/add/{arg}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::addCommentJS'
+    _title: 'Add comment via js'
+  requirements:
+    _permission: 'access content'
+kozon.save.comment:
+  path: '/kozon/js/comment/save'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::saveCommentJS'
+    _title: 'Save comment via js'
+  requirements:
+    _permission: 'access content'
+kozon.hide.comment:
+  path: '/kozon/js/comment/hide'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::hideCommentJS'
+    _title: 'Hide comment via js'
+  requirements:
+    _permission: 'access content'
+kozon.add.comment_parent:
+  path: '/kozon/js/comment/add/{arg}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::addCommentParentJS'
+    _title: 'Add comment parent via js'
+  requirements:
+    _permission: 'access content'
+kozon.save.comment_parent:
+  path: '/kozon/js/comment/save/child'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::saveCommentParentJS'
+    _title: 'Save comment parent via js'
+  requirements:
+    _permission: 'access content'
+kozon.hide.comment_parent:
+  path: '/kozon/js/comment/hide/child/{arg}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::hideCommentParentJS'
+    _title: 'Hide comment parent via js'
+  requirements:
+    _permission: 'access content'
+kozon.alltaxs:
+  path: '/kozon/alltax' 
+  defaults: 
+    _controller: '\Drupal\kozon\Controller\KozonController::contentAllTags' 
+    _title: 'Toutes les catégories'
+  requirements: 
+    _permission: 'access content'
+kozon.allsujects:
+  path: '/kozon/allsubjects' 
+  defaults: 
+    _controller: '\Drupal\kozon\Controller\KozonController::contentAllSubjects' 
+    _title: 'Sujets'
+  requirements: 
+    _permission: 'access content'
+kozon.mysujects:
+  path: '/kozon/mysubjects' 
+  defaults: 
+    _controller: '\Drupal\kozon\Controller\KozonController::contentMySubjects' 
+    _title: 'Mes messages postés'
+  requirements: 
+    _permission: 'access content'
+kozon.mycomments:
+  path: '/kozon/mycomments' 
+  defaults: 
+    _controller: '\Drupal\kozon\Controller\KozonController::contentMyComments' 
+    _title: 'Mes messages Suivis'
+  requirements: 
+    _permission: 'access content'
+kozon.add.comment_like:
+  path: '/kozon/js/comment/like/{arg}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::addCommentlikeJS'
+    _title: 'Add comment like via js'
+  requirements:
+    _permission: 'access content'
+kozon.edit.forum:
+  path: '/kozon/js/forum/edit/{arg}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::editForumJS'
+    _title: 'Add comment via js'
+  requirements:
+    _permission: 'access content'
+kozon.update.forum:
+  path: '/kozon/js/forum/update'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::updateForumJS'
+    _title: 'Update forum via js'
+  requirements:
+    _permission: 'access content'
+kozon.delete.forum:
+  path: '/kozon/delete/{arg}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::deleteForumJS'
+    _title: 'delete forum display via js'
+  requirements:
+    _permission: 'access content'
+kozon.delete.forum.yes:
+  path: '/kozon/delete/yes/{arg}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::deleteForumYesJS'
+    _title: 'delete forum yes via js'
+  requirements:
+    _permission: 'access content'
+kozon.delete.forum.no:
+  path: '/kozon/delete/no/{arg}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::deleteForumNoJS'
+    _title: 'delete forum no via js'
+  requirements:
+    _permission: 'access content'
+kozon.edit.comment:
+  path: '/kozon/js/comment/edit/{arg}/{arg1}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::editCommentJS'
+    _title: 'Add comment via js'
+  requirements:
+    _permission: 'access content'
+kozon.update.comment:
+  path: '/kozon/js/comment/update'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::updateCommentJS'
+    _title: 'Update comment via js'
+  requirements:
+    _permission: 'access content'
+kozon.load.page:
+  path: '/kozon/load_page/{arg}/{arg1}/{arg2}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::loadPageJS'
+    _title: 'Load Page via js'
+  requirements:
+    _permission: 'access content'
+kozon.delete.forum.non:
+  path: '/kozon/delete/non/{arg}/{arg1}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::deleteForumNonJS'
+    _title: 'delete forum no via js'
+  requirements:
+    _permission: 'access content'
+kozon.listajaxtag:
+  path: '/kozon_ajax_tag'
+  defaults:
+    _title: 'Tags Article'
+    _controller: '\Drupal\kozon\Controller\KozonController::contentTermJs'
+  requirements:
+    _permission: 'access content'   
+kozon.add.comment_grandparent:
+  path: '/kozon/js/comment/addg/{arg}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::addCommentGrandParentJS'
+    _title: 'Add comment parent via js'
+  requirements:
+    _permission: 'access content'
+kozon.hide.comment_grandparent:
+  path: '/kozon/js/comment/hide/grandchild/{arg}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::hideCommentGrandParentJS'
+    _title: 'Hide comment parent via js'
+  requirements:
+    _permission: 'access content'
+kozon.add.tag:
+  path: '/kozon/js/tag/{arg}/{arg1}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::addTagJS'
+    _title: 'Add comment parent via js'
+  requirements:
+    _permission: 'access content'
+kozon.add.untag:
+  path: '/kozon/js/untag/{arg}/{arg1}'
+  defaults:
+    _controller: '\Drupal\kozon\Controller\KozonController::removeTagJS'
+    _title: 'Add comment parent via js'
+  requirements:
+    _permission: 'access content'
+kozon.suivis:
+  path: '/kozon/suivis' 
+  defaults: 
+    _controller: '\Drupal\kozon\Controller\KozonController::contentMySuivis' 
+    _title: 'Mes messages Suivis'
+  requirements: 
+    _permission: 'access content'

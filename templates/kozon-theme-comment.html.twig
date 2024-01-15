@@ -1,0 +1,48 @@
+<div class="forum-posts forum-suivis">
+	<div class="row">
+		<div class="col-12">
+			<p class="mf-title">Mes messages suivis ({{ items.totcomment }})</p>
+		</div>
+	</div>
+	<div class="row content">
+		<div class="suivis-container">
+			<div class="row kcat-title">
+				<div class="col-sm-5">
+					SUJETS
+				</div>
+				<div class="col-sm-2">
+					RÉPONSES
+				</div>
+				<div class="col-sm-1">
+					VUES
+				</div>
+				<div class="col-sm-4">
+					DERNIERS MESSAGES
+				</div>
+			</div>
+			{% for item in items.comment %}
+				<hr class="line-kcat">
+				<div class="row  kcat-list" style="border-left: 5px solid {{ item.color }}; ;">
+					
+					<div class="col-sm-5">
+						<a href="/kozon/{{ item.tid }}/{{ item.nid }}" >
+				    	<span class="forum-termname order-0">{{ item.title }}</span>
+				    	<span class="forum-name order-1">Par {{ item.nodeusername }}</span>
+				    	</a>
+				    </div>
+				    <div class="col-sm-2">
+				    	<span class="forum-numeric">{{ item.count }}</span>
+				    </div>
+				    <div class="col-sm-1">
+				    	<span class="forum-numeric">{{ item.counter }}</span>
+				    </div>
+				    <div class="col-sm-4 pl-0">
+				    	<span class="forum-termname order-0">{{ item.user }}</span>
+				    	<span class="forum-date order-1">{{ item.datechange }}</span>
+				    </div>
+				    
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

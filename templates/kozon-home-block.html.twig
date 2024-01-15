@@ -1,0 +1,67 @@
+<div class="kozon_block">
+	<div class="col-sm-12 col-md-12 col-12">
+      <h2>Kozon</h2>
+      <div id="tout-kozon"><a href="/kozon">TOUT VOIR</a></div>
+      <hr style="border-color:#FFFFFF">
+    </div>
+	<div class="row mb-2">
+		{% for item in items %}
+			<div class="col-md-6 col-xs-auto col-sm-12">
+				<div class="row row-kozon">
+					{% if item.image is defined and item.image != '' %}
+						<div class=" col-sm-4 col-md-4 col-4">
+							
+						    <div id="img-kozon" class="">
+						    	<img src="{{ item.image }}" alt="" typeof="foaf:Image" class="image-style-thumbnail img-fluid" width="90" height="90">
+							</div>
+	
+						</div>
+						<div class=" col-sm-8 col-md-8 col-8">
+					{% else %}
+						<div class=" col-sm-4 col-md-4 col-4">
+							
+						    <div id="img-kozon" class="">
+						    	<img src="{{ item.image }}" alt="" typeof="foaf:Image" class="image-style-thumbnail img-fluid" width="90" height="90">
+							</div>
+	
+						</div>
+						<div class=" col-sm-8 col-md-8 col-8">
+					{% endif %}
+					    <h3><a href="/kozon/{{ item.tid }}/{{ item.nid }}" hreflang="fr">{{ item.title }}</a></h3>
+					    <div class="text-kozon"><div id="datek"> {{ item.date }} </div></div>
+					    <div class="text-kozon"><div id="authork"> Créé par <a title="Voir le profil utilisateur." href="/user/{{ item.user }}" about="/user/{{ item.user }}" typeof="Person" property="schema:name" datatype="" class="username" lang="">{{ item.name }}</a> </div></div>
+					    <div class="text-kozon kozon-t-body">
+						    {{ item.body }}
+					    </div>
+					    <div class="links-kozon">
+						    <div class="like_dislike">
+						    	{% if item.like_band == 0 %}
+									<a id="icon_like_{{ item.lidis_id }}" class="use-ajax" href={{ item.like_url }}><i class="fas fa-heart"></i> J'AIME</a>
+									<span id="like_{{ item.lidis_id }}"></span>
+								{% else %}
+									<span><i class="fas fa-heart"></i> </span>
+									<span id="like_{{ item.lidis_id }}">{{ item.likes }}</span>
+								{% endif %}
+							</div>
+							<div id="like_dislike_status_{{ item.lidis_id }}"></div>
+						    <div class="link-kozon-redirect"><img src="/themes/keonoo/images/Comment.svg" style="width: 18px;"><a href="/kozon/{{ item.tid }}/{{ item.nid }}" hreflang="fr" class="link-kozon-a">RÉPONDRE</a></div> 
+					    </div>
+					</div>
+					
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+
+    
+
+  
+  
+  
+
+
+  
+
+          

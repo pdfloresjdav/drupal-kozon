@@ -1,0 +1,41 @@
+<h3 class="kozon-titles">Toutes les catégories</h3>
+{{ drupal_block('module_hero_forum_category_block') }}
+<div class="block block-module-hero block-module-hero-forum-all-categories">
+	<div class="content">
+		<div class="forum-categories">
+			<div class="row kcat-title">
+				<div class="col-sm-4">
+				CATÉGORIES
+				</div>
+				<div class="col-sm-2">
+				SUJETS
+				</div>
+				<div class="col-sm-2">
+				MESSAGES
+				</div>
+				<div class="col-sm-4">
+				DERNIERS MESSAGES
+				</div>
+			</div>
+
+			{% for item in items %}
+				<hr class="line-kcat">
+				<div class="row kcat-list" style="border-left: 5px solid {{ item.color }}; ;">
+				    <div class="col-sm-4 k-name">
+				    	<a href="/kozon/{{ item.tid }}">{{ item.name }}</a>
+				    </div>
+				    <div class="col-sm-2 k-post">
+					{{ item.post }}
+					</div>
+					<div class="col-sm-2 k-comm">
+					{{ item.comm }}
+					</div>
+					<div class="col-sm-4 k-user">
+					{{ item.usercomment }} <span class="forum-cat-time">{{ item.timecomment }}</span>
+					</div>
+				</div>
+			{% endfor %}
+
+		</div>
+	</div>
+</div>

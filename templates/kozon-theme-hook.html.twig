@@ -1,0 +1,263 @@
+{% if items.is_mobile != false %}
+<div class="content-kozon kreply-page">
+	<div class="row taxonomy-post-kozon mx-auto">
+		<div class="col-12 forum-tagsc">
+			<p><a class="tcatf" data-toggle="collapse" href="#collapseTags" aria-expanded="false">Les sujets en lien</a></p>
+			<div id="collapseTags">
+			{% for itemt in items.taxterms %}
+				<a href="/kozon/{{ itemt.tid }}"><div class="view-field" style="background-color: {{ itemt.color }};color:#FFFFFF;font-family: Arial;font-size: 12px;font-weight: bold;letter-spacing: 0.5px;line-height: 14px;text-transform: uppercase;margin: 2px;border-radius: 16.5px;width: auto;padding: 10px 10px;display: inline-block;">{{ itemt.name }}</div></a>
+				
+			{% endfor %}
+			</div>
+			{% if items.taxtermscount > 5  and items.is_mobile.value == '0' %}
+				<a class="plustagsb" href="/kozon/alltax"><div class="view-field">+{{ items.taxterms }}</div></a>	
+			{% endif %}
+			{{ drupal_block('module_hero_forum_block') }}
+		</div>
+	</div>
+	<div class="row post-kozon mx-auto">
+		<div class="col-12">
+			<div class="header-post">
+				<div class="view-field ktitle-response">{{ items.title }}</div>
+				<div class="view-field ktag-response-mobile">
+					{{ items.post_tag }}
+				</div>
+				<a href="/kozon/{{ items.tid }}">
+					<div class="view-field kcat-response">
+						<span>{{ items.taxonomy }}</span>
+					</div>
+				</a>
+				
+			</div>
+			<div class="content-post">
+				{% if items.imageuser is defined %}
+			      <img src="{{ items.imageuser }}" class="kfoto-forum my-auto">
+		      	{% endif %}
+				<div class="view-field forum-username">{{ items.user }}</div>
+				<div class="view-field forum-time">{{ items.date }}</div>
+				
+				<div class="view-field forum-body">{{ items.body|raw }}</div>
+				{% if items.image is defined %}
+				<div class="forum-filer">
+			      <div class="dfimage"></div><a href="{{ items.image }}" class="nameImagef">{{ items.image_name }}<a>
+			    </div>
+			    {% endif %}
+				{% if items.fileforum is defined %}
+			      	{% if items.fileforum_type == 'image' %}
+				  		<img src="{{ items.fileforum  }}" class="kfoto-forum img-kozon">
+			      	{% endif %}
+					<div class="forum-filer">
+			       		<div class="dfimage"></div><a href="{{ items.fileforum }}" class="nameImagef">{{ items.fileforum_name }} ({{ items.fileforum_size }})</a>
+			     	</div>
+		      	{% endif %}
+
+			</div>
+			<div class="links-kozon like-kozon original_message">
+
+				
+				<div class="link-kozon-redirect-add">{{ items.comment_add }}</div> 
+
+			    <div class="like_dislike like_dislike_mobile">
+						<a id="icon_like_{{ items.lidis_id }}" class="use-ajax" href={{ items.like_url }}><span><i class="fas fa-heart"></i> </span></a>
+						<span id="like_{{ items.lidis_id }}">{{ items.likes }}</span>
+				</div>
+				<div id="like_dislike_status_{{ items.lidis_id }}"></div>
+				
+			    <div class="link-kozon-redirect link-kozon-redirect-mobile">{{ items.forum_edit }}</div> 
+			    <div class="kozon-info-post kozon-info-post-mobile">{{ items.ccount }} RÉPONSES | {{ items.counter }} VUES</div>
+		    </div>
+		    <div class="display-comment reply-comment-box"></div>
+		</div>
+		<div class="row comment-post-kozon">
+		{% for item in items.comment %}
+			<div class="row comment-post-kozon">
+				<div class="col-12">
+					<div class="content-post">
+						{% if item.imageuser is defined %}
+					      <img src="{{ item.imageuser }}" class="kfoto-forum my-auto">
+				      	{% endif %}
+						<div class="view-field forum-username">{{ item.user }}</div>
+						<div class="view-field forum-time">{{ item.datechange }}</div>
+						<div class="view-field forum-body">{{ item.body|render|striptags }}</div>
+						{% if item.filecomment is defined %}
+					      <a href="{{ item.filecomment }}">télécharger un fichier</a>
+				      	{% endif %}
+						{{ item.likelink }}
+						<span id="like_comment_{{ item.cid }}">{{ item.likecount }}</span>
+					</div>
+				</div>
+				<div class="link-kozon-redirect "><i class="fas fa-comment-alt"></i>{{ item.comment_add }} <div class="link-kozon-redirect">{{ item.comment_edit }}</div> </div> 
+				<div class="display-comment-parent-{{ item.cid }} reply-comment-box col-12"></div>
+				{% for itemc in item.children %}
+					<div class="row internal-comment-post-kozon">
+						<div class="col-12">
+							<div class="content-post">
+								{% if itemc.imageuser is defined %}
+							      <img src="{{ itemc.imageuser }}" class="kfoto-forum my-auto">
+						      	{% endif %}
+								<div class="view-field forum-username">{{ itemc.user }}</div>
+								<div class="view-field">{{ itemc.datechange }}</div>
+								<div class="view-field forum-time">{{ itemc.body|render|striptags }}</div>
+								{% if itemc.filecomment is defined %}
+							      <a href="{{ itemc.filecomment }}">télécharger un fichier</a>
+						      	{% endif %}
+						      	{{ itemc.comment_edit }}
+						      	<!--<div class="link-kozon-redirect link-kozon-redirect-grand"><i class="fas fa-comment-alt"></i>{{ itemc.comment_add }} </div> <div class="link-kozon-edit-grand">{{ itemc.comment_edit }}</div> -->
+								<div class="display-comment-grandparent-{{ itemc.cid }} reply-comment-box"></div>
+								{% for itemcg in itemc.grandchildren %}
+								<div class="row internal-comment-post-kozon">
+									<div class="col-12">
+										<div class="content-post">
+											{% if itemcg.imageuser is defined %}
+										      <img src="{{ itemcg.imageuser }}" class="kfoto-forum my-auto">
+									      	{% endif %}
+											<div class="view-field forum-username">{{ itemcg.user }}</div>
+											<div class="view-field">{{ itemcg.datechange }}</div>
+											<div class="view-field forum-time">{{ itemcg.body|render|striptags }}</div>
+											{% if itemcg.filecomment is defined %}
+										      <a href="{{ itemcg.filecomment }}">télécharger un fichier</a>
+									      	{% endif %}
+									      	{{ itemcg.comment_edit }}
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+	</div>
+	
+</div>
+{% else %}
+<div class="content-kozon kreply-page">
+	<div class="row taxonomy-post-kozon mx-auto">
+		<div class="col-12 forum-tagsc">
+			<p><a class="tcatf" data-toggle="collapse" href="#collapseTags" aria-expanded="false">Les sujets en lien</a></p>
+			<div id="collapseTags">
+			{% for itemt in items.taxterms %}
+				<a href="/kozon/{{ itemt.tid }}"><div class="view-field" style="background-color: {{ itemt.color }};color:#FFFFFF;font-family: Arial;font-size: 12px;font-weight: bold;letter-spacing: 0.5px;line-height: 14px;text-transform: uppercase;margin: 2px;border-radius: 16.5px;width: auto;padding: 10px 10px;display: inline-block;">{{ itemt.name }}</div></a>
+				
+			{% endfor %}
+			</div>
+			{{ drupal_block('module_hero_forum_block') }}
+		</div>
+	</div>
+	<div class="row post-kozon mx-auto">
+		<div class="col-12">
+			<div class="header-post">
+				<div class="view-field ktitle-response">{{ items.title }}</div>
+				<a href="/kozon/{{ items.tid }}">
+				<div class="view-field ktag-response">
+					{{ items.post_tag }}
+				</div>
+				<div class="view-field kcat-response"><span>{{ items.taxonomy }}</span></div></a>
+				
+			</div>
+			<div class="content-post">
+				{% if items.imageuser is defined %}
+			      <img src="{{ items.imageuser }}" class="kfoto-forum my-auto">
+		      	{% endif %}
+				<div class="view-field forum-username">{{ items.user }}</div>
+				<div class="view-field forum-time">{{ items.date }}</div>
+				
+				<div class="view-field forum-body">{{ items.body|raw }}</div>
+				{% if items.image is defined %}
+				<div class="forum-filer">
+			      <div class="dfimage"></div><a href="{{ items.image }}" class="nameImagef">{{ items.image_name }}<a>
+			    </div>
+			    {% endif %}
+				{% if items.fileforum is defined %}
+			      	{% if items.fileforum_type == 'image' %}
+				  		<img src="{{ items.fileforum  }}" class="kfoto-forum img-kozon">
+			      	{% endif %}
+					<div class="forum-filer">
+			       		<div class="dfimage"></div><a href="{{ items.fileforum }}" class="nameImagef">{{ items.fileforum_name }} ({{ items.fileforum_size }})</a>
+			     	</div>
+		      	{% endif %}
+
+			</div>
+			<div class="links-kozon like-kozon original_message">
+
+				
+				<div class="link-kozon-redirect-add">{{ items.comment_add }}</div> 
+
+			    <div class="like_dislike">
+						<a id="icon_like_{{ items.lidis_id }}" class="use-ajax" href={{ items.like_url }}><span><i class="fas fa-heart"></i> </span></a>
+						<span id="like_{{ items.lidis_id }}">{{ items.likes }}</span>
+				</div>
+				<div id="like_dislike_status_{{ items.lidis_id }}"></div>
+				
+			    <div class="link-kozon-redirect">{{ items.forum_edit }}</div> 
+			    <div class="kozon-info-post">{{ items.ccount }} RÉPONSES | {{ items.counter }} VUES</div>
+		    </div>
+		    <div class="display-comment reply-comment-box"></div>
+		</div>
+		<div class="row comment-post-kozon">
+		{% for item in items.comment %}
+			<div class="row comment-post-kozon">
+				<div class="col-12">
+					<div class="content-post">
+						{% if item.imageuser is defined %}
+					      <img src="{{ item.imageuser }}" class="kfoto-forum my-auto">
+				      	{% endif %}
+						<div class="view-field forum-username">{{ item.user }}</div>
+						<div class="view-field forum-time">{{ item.datechange }}</div>
+						<div class="view-field forum-body">{{ item.body|render|striptags }}</div>
+						{% if item.filecomment is defined %}
+					      <a href="{{ item.filecomment }}">télécharger un fichier</a>
+				      	{% endif %}
+						{{ item.likelink }}
+						<span id="like_comment_{{ item.cid }}">{{ item.likecount }}</span>
+					</div>
+				</div>
+				<div class="link-kozon-redirect "><i class="fas fa-comment-alt"></i>{{ item.comment_add }} <div class="link-kozon-redirect">{{ item.comment_edit }}</div> </div> 
+				<div class="display-comment-parent-{{ item.cid }} reply-comment-box col-12"></div>
+				{% for itemc in item.children %}
+					<div class="row internal-comment-post-kozon">
+						<div class="col-12">
+							<div class="content-post">
+								{% if itemc.imageuser is defined %}
+							      <img src="{{ itemc.imageuser }}" class="kfoto-forum my-auto">
+						      	{% endif %}
+								<div class="view-field forum-username">{{ itemc.user }}</div>
+								<div class="view-field">{{ itemc.datechange }}</div>
+								<div class="view-field forum-time">{{ itemc.body|render|striptags }}</div>
+								{% if itemc.filecomment is defined %}
+							      <a href="{{ itemc.filecomment }}">télécharger un fichier</a>
+						      	{% endif %}
+						      	{{ itemc.comment_edit }}
+						      	<!--<div class="link-kozon-redirect link-kozon-redirect-grand"><i class="fas fa-comment-alt"></i>{{ itemc.comment_add }} </div> <div class="link-kozon-edit-grand">{{ itemc.comment_edit }}</div> -->
+								<div class="display-comment-grandparent-{{ itemc.cid }} reply-comment-box"></div>
+								{% for itemcg in itemc.grandchildren %}
+								<div class="row internal-comment-post-kozon">
+									<div class="col-12">
+										<div class="content-post">
+											{% if itemcg.imageuser is defined %}
+										      <img src="{{ itemcg.imageuser }}" class="kfoto-forum my-auto">
+									      	{% endif %}
+											<div class="view-field forum-username">{{ itemcg.user }}</div>
+											<div class="view-field">{{ itemcg.datechange }}</div>
+											<div class="view-field forum-time">{{ itemcg.body|render|striptags }}</div>
+											{% if itemcg.filecomment is defined %}
+										      <a href="{{ itemcg.filecomment }}">télécharger un fichier</a>
+									      	{% endif %}
+									      	{{ itemcg.comment_edit }}
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+	</div>
+	
+</div>
+{% endif %}

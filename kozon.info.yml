@@ -1,0 +1,4 @@
+name: "Module Kozon"
+description: "We are going to be Drupal 8 module kozon"
+type: module
+core: 8.x

@@ -1,0 +1,83 @@
+{% if items.is_mobile == false %}
+<div class="forum-posts myforums catart">
+	<div class="row content">
+		<div class="col-12">
+			<span class="mf-title" style="border-left: 5px solid {{ items.color }}; ;  padding-left: 1rem;">{{ items.taxonomy }}</span> 
+			{{ drupal_block('module_hero_forumincat_block') }}
+		</div>
+	</div>
+
+	<div class="row content">
+		<div class="forum-categories-sub">
+			<div class="row kcat-title">
+				<div class="col-sm-5">
+				SUJETS
+				</div>
+				<div class="col-sm-2">
+				RÉPONSES
+				</div>
+				<div class="col-sm-1">
+				VUES
+				</div>
+				<div class="col-sm-4 k-last">
+				DERNIERS MESSAGES
+				</div>
+			</div>
+			{% for item in items.taxarticle %}
+				<hr class="line-kcat">
+				<div class="row kcat-list" style="margin-left: 10px; margin-top: 15px; margin-bottom: 15px;">
+				    <div class="col-sm-5 k-name-sub">
+				    	<a href="/kozon/{{ items.tid }}/{{ item.nid }}">
+							<div class="header-post">
+								<div class="view-field forum-username">{{ item.title }}
+								 <span class="view-field forum-name-sub">Par {{ item.user }}</span>
+								</div>
+							</div>
+						</a>
+				    </div>
+				    <div class="col-sm-2 k-post-sub">
+					{{ item.reponses }}
+					</div>
+					<div class="col-sm-1 k-comm-sub">
+					{{ item.views }}
+					</div>
+					<div class="col-sm-4 k-user-sub k-last">
+					{{ item.usercomment }} <span class="forum-cat-time-sub">{{ item.createdcomment }}</span>
+					</div>
+				</div>
+			{% endfor %}
+			{% if items.taxarticlemore > 0 %}
+				<div class="k-button more-sub-articles" page="{{ items.taxarticlemore }}" tid="{{ items.tid }}"><a class="more-forum-categories" >VOIR PLUS</a></div>
+			{% endif %}
+		</div>
+		
+	</div>
+
+</div>
+{% endif %}
+{% if items.is_mobile != false %}
+<div class="forum-posts myforums catart">
+	<div class="row content">
+		<div class="col-12">
+			<span class="mf-title" style="border-left: 5px solid {{ items.color }}; ;  padding-left: 1rem;">{{ items.taxonomy }}</span> 
+			{{ drupal_block('module_hero_forumincat_block') }}
+		</div>
+	</div>
+	{% for item in items.taxarticle %}
+		<div class="row kcat-list" style="margin-left: 10px; margin-top: 15px; margin-bottom: 15px;">
+		    <div class="col-sm-5 k-name-sub">
+		    	<a href="/kozon/{{ items.tid }}/{{ item.nid }}">
+					<div class="header-post">
+						<div class="view-field forum-username">{{ item.title }}
+						</div>
+						<span class="view-field forum-name-sub">Par {{ item.user }}</span>
+					</div>
+				</a>
+		    </div>
+		</div>
+	{% endfor %}
+	{% if items.taxarticlemore > 0 %}
+		<div class="k-button more-sub-articles" page="{{ items.taxarticlemore }}" tid="{{ items.tid }}"><a class="more-forum-categories" >VOIR PLUS</a></div>
+	{% endif %}
+</div>
+{% endif %}

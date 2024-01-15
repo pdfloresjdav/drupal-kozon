@@ -1,0 +1,74 @@
+<div class="forum-posts myforums mpostes">
+	<div class="row mpostesh">
+		<div class="col-12">
+			<p class="mf-title">Mes messages postés ({{ items.totpostes }})</p>
+		</div>
+	</div>
+	<div class="post-kozon-main">
+	{% for item in items.postes %}
+		<div class="row post-kozon">
+			<div class="col-12">
+				<div class="header-post">
+					<div class="view-field ktitle-response"><a href="/kozon/{{ item.tid }}/{{ item.nid }}">{{ item.title }}</a></div>
+					<a href="/kozon/{{ item.tid }}"><div class="view-field kcat-response">{{ item.taxonomy }}</div></a>
+				</div>
+				<div class="content-post">
+					{% if item.imageuser is defined %}
+				      <img src="{{ item.imageuser }}" class="kfoto-forum my-auto">
+			      	{% endif %}
+					<div class="view-field forum-username">{{ item.user }}</div>
+					<div class="view-field forum-time">{{ item.date }}</div>
+					<div class="view-field forum-body">{{ item.body|render|striptags }}</div>
+					{% if item.image is defined %}
+					<div class="forum-filer">
+				      <div class="dfimage"></div><a href="{{ item.image }}" class="nameImagef">{{ item.image_name }}<a>
+				    </div>
+				      <!--<img src="{{ item.image }}" class="dfimage">-->
+			      	{% endif %}
+					{% if item.fileforum is defined %}
+				      <div class="dfimage"></div>
+						<a href="{{ item.fileforum }}" class="attachforum">{{ item.fileforum_name }} ({{ item.fileforum_size }})</a>
+			      	{% endif %}
+				</div>
+				<div class="links-kozon like-kozon">
+				    <div class="like_dislike order-1">
+						<span><i class="fas fa-heart"></i> </span>
+						<span id="like_{{ item.lidis_id }}">{{ item.likes }}</span>
+					</div>
+					<div id="like_dislike_status_{{ item.lidis_id }}"></div>
+				    
+			    </div>
+
+			    <div class="link-kozon-redirect order-0"><a href="/kozon/{{ item.tid }}/{{ item.nid }}" class="mypost-resp">RÉPONDRE</a></div> 
+			    <div class="delete-forum">{{ item.forum_del }}</div><div class="fade-kozon"></div><div class="delete-forum-{{item.lidis_id}} forum-dis-non"> {{ item.forum_del_no }}<span>Supprimer</span><div class="sup-btn-yes">{{ item.forum_del_yes }}</div></div>
+			    <div class="kozon-info-post">{{ item.ccount }} RÉPONSES | {{ item.counter }} VUES</div>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+
+	<div class="users_page">
+    {% if items.pagination > 0 %}
+      {% set less = items.pagination %}
+      {% for i in 0..items.pagination %}
+      	{% set j = i+1 %}
+      	{% set k = i*2 %}
+        {% if i == 0 %}
+          	<div class="row pag-{{ i }}">
+        	<span class="page_change pag-selected" page="{{ k }}">{{ j }}</span>
+        {% else %}
+        	<span class="page_change" page="{{ k }}">{{ j }}</span>
+        {% endif %}
+        {% set k = i%17 %}
+        {% if i > 0 and k==0 and i < less %}
+        	{% set l = i-16 %}
+        	{% set m = i+1 %}
+          <span class="page-more" prev="{{ l }}" next="{{ m }}">>></span></div><div class="row page-inactive pag-{{ m }}"><span class="page-less" prev="{{ l }}" next="{{ m }}"><<</span>
+        {% elseif i == less %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    </div>
+
+</div>
